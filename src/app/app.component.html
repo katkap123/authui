@@ -1,0 +1,40 @@
+<header class="top-nav">
+  <div class="nav-container">
+
+    <a routerLink="/" class="brand">
+      School Platform
+    </a>
+
+    <nav class="nav-links">
+      <a routerLink="/" routerLinkActive="active">
+        Home
+      </a>
+
+      <a
+        *ngIf="!authService.isLoggedIn()"
+        routerLink="/login"
+        routerLinkActive="active">
+        Login
+      </a>
+
+      <a
+        *ngIf="authService.isLoggedIn()"
+        routerLink="/welcome"
+        routerLinkActive="active">
+        Welcome
+      </a>
+
+      <button
+        *ngIf="authService.isLoggedIn()"
+        type="button"
+        (click)="logout()">
+        Logout
+      </button>
+    </nav>
+
+  </div>
+</header>
+
+<main class="page-content">
+  <router-outlet />
+</main>

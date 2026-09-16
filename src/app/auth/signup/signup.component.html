@@ -1,0 +1,151 @@
+<div class="signup-container">
+
+  <div class="signup-card">
+
+    <h1>Create Account</h1>
+
+    <p class="subtitle">
+      Create your account to get started
+    </p>
+
+    <form (ngSubmit)="signup()">
+
+      <!-- First Name -->
+      <div class="form-group">
+
+        <label for="firstName">
+          First Name
+        </label>
+
+        <input
+          id="firstName"
+          type="text"
+          name="firstName"
+          [(ngModel)]="signupRequest.firstName"
+          placeholder="Enter your first name"
+          required
+        />
+
+      </div>
+
+      <!-- Last Name -->
+      <div class="form-group">
+
+        <label for="lastName">
+          Last Name
+        </label>
+
+        <input
+          id="lastName"
+          type="text"
+          name="lastName"
+          [(ngModel)]="signupRequest.lastName"
+          placeholder="Enter your last name"
+          required
+        />
+
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+
+        <label for="email">
+          Email
+        </label>
+
+        <input
+          id="email"
+          type="email"
+          name="email"
+          [(ngModel)]="signupRequest.email"
+          placeholder="Enter your email"
+          required
+        />
+
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+
+        <label for="password">
+          Password
+        </label>
+
+        <input
+          id="password"
+          type="password"
+          name="password"
+          [(ngModel)]="signupRequest.password"
+          placeholder="Enter your password"
+          required
+        />
+
+        <small>
+          Password must be at least 8 characters.
+        </small>
+
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="form-group">
+
+        <label for="confirmPassword">
+          Confirm Password
+        </label>
+
+        <input
+          id="confirmPassword"
+          type="password"
+          name="confirmPassword"
+          [(ngModel)]="confirmPassword"
+          placeholder="Confirm your password"
+          required
+        />
+
+      </div>
+
+      <!-- Error -->
+      <div
+        *ngIf="errorMessage"
+        class="error-message"
+      >
+        {{ errorMessage }}
+      </div>
+
+      <!-- Success -->
+      <div
+        *ngIf="successMessage"
+        class="success-message"
+      >
+        {{ successMessage }}
+      </div>
+
+      <!-- Signup -->
+      <button
+        type="submit"
+        [disabled]="loading"
+      >
+        {{ loading ? 'Creating account...' : 'Create Account' }}
+      </button>
+
+    </form>
+
+    <!-- Login -->
+    <div class="login-link">
+
+      <span>Already have an account?</span>
+
+      <button
+        type="button"
+        class="link-button"
+        (click)="goToLogin()"
+      >
+        Login
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
