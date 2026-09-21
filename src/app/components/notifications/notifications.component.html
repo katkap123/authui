@@ -1,0 +1,27 @@
+<h2>Notifications</h2>
+
+<p *ngIf="loading">Loading notifications...</p>
+
+<p *ngIf="errorMessage">
+  {{ errorMessage }}
+</p>
+
+<div *ngIf="!loading && !errorMessage">
+
+  <p *ngIf="notifications.length === 0">
+    No notifications available.
+  </p>
+
+  <div *ngFor="let notification of notifications">
+    <h3>{{ notification.title }}</h3>
+
+    <p>{{ notification.message }}</p>
+
+    <small>
+      {{ notification.createdAt | date:'medium' }}
+    </small>
+
+    <hr>
+  </div>
+
+</div>

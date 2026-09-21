@@ -1,4 +1,6 @@
 import { Routes } from '@angular/router';
+import { NotificationsComponent } from './components/notifications/notifications.component';
+import { AdminCreateNotificationComponent } from './components/admin-create-notification/admin-create-notification.component';
 
 export const routes: Routes = [
 
@@ -44,6 +46,14 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./welcome/welcome.component')
         .then(m => m.WelcomeComponent)
+  },
+  {
+    path: 'notifications',
+    component: NotificationsComponent
+  },
+  {
+    path: 'admin/notifications/create',
+    component: AdminCreateNotificationComponent
   }
 
 ];

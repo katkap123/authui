@@ -1,0 +1,49 @@
+<h2>Create Notification</h2>
+
+<form (ngSubmit)="createNotification()">
+
+  <div>
+    <label for="title">Title</label>
+    <br>
+    <input
+      id="title"
+      name="title"
+      type="text"
+      [(ngModel)]="title"
+      required
+      maxlength="200">
+  </div>
+
+  <br>
+
+  <div>
+    <label for="message">Message</label>
+    <br>
+    <textarea
+      id="message"
+      name="message"
+      [(ngModel)]="message"
+      required
+      rows="5">
+    </textarea>
+  </div>
+
+  <br>
+
+  <button
+    type="submit"
+    [disabled]="submitting || !title.trim() || !message.trim()">
+
+    {{ submitting ? 'Creating...' : 'Create Notification' }}
+
+  </button>
+
+</form>
+
+<p *ngIf="successMessage">
+  {{ successMessage }}
+</p>
+
+<p *ngIf="errorMessage">
+  {{ errorMessage }}
+</p>

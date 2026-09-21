@@ -1,0 +1,17 @@
+# Angular
+.angular/
+dist/
+
+# Dependencies
+node_modules/
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment files containing secrets
+.env
+.env.*
