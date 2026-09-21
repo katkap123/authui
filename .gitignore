@@ -1,6 +1,5 @@
 # Angular
 .angular/
-dist/
 
 # Dependencies
 node_modules/
