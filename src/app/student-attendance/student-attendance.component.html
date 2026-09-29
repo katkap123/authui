@@ -1,0 +1,66 @@
+<div class="attendance-page">
+
+    <div class="calendar-header">
+      <button type="button" (click)="previousMonth()">
+        &larr;
+      </button>
+  
+      <h2>{{ monthTitle }}</h2>
+  
+      <button type="button" (click)="nextMonth()">
+        &rarr;
+      </button>
+    </div>
+  
+    <p *ngIf="loading">
+      Loading attendance...
+    </p>
+  
+    <p *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </p>
+  
+    <div class="calendar" *ngIf="!loading">
+  
+      <div class="weekday">Sun</div>
+      <div class="weekday">Mon</div>
+      <div class="weekday">Tue</div>
+      <div class="weekday">Wed</div>
+      <div class="weekday">Thu</div>
+      <div class="weekday">Fri</div>
+      <div class="weekday">Sat</div>
+  
+      <div
+        *ngFor="let day of calendarDays"
+        class="calendar-day"
+        [class.empty-day]="!day.date">
+  
+        <ng-container *ngIf="day.date">
+  
+          <div class="date-number">
+            {{ day.date.getDate() }}
+          </div>
+  
+          <div
+            *ngFor="let record of day.attendance"
+            class="attendance-record"
+            [class.present]="record.status === 'PRESENT'"
+            [class.absent]="record.status === 'ABSENT'">
+  
+            <span class="class-name">
+              {{ record.className }}
+            </span>
+  
+            <span class="status">
+              {{ record.status === 'PRESENT' ? 'Present' : 'Absent' }}
+            </span>
+  
+          </div>
+  
+        </ng-container>
+  
+      </div>
+  
+    </div>
+  
+  </div>

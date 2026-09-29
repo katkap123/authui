@@ -1,0 +1,81 @@
+.attendance-page {
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 20px;
+  }
+  
+  .calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .calendar-header h2 {
+    margin: 0;
+  }
+  
+  .calendar-header button {
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+  
+  .calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    border-top: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+  }
+  
+  .weekday {
+    padding: 12px;
+    text-align: center;
+    font-weight: 600;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .calendar-day {
+    min-height: 120px;
+    padding: 8px;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .empty-day {
+    background: #f7f7f7;
+  }
+  
+  .date-number {
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  
+  .attendance-record {
+    padding: 5px 7px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+  
+  .present {
+    background: #dff5e3;
+  }
+  
+  .absent {
+    background: #fde2e2;
+  }
+  
+  .class-name {
+    display: block;
+    font-weight: 600;
+  }
+  
+  .status {
+    display: block;
+    margin-top: 2px;
+  }
+  
+  .error-message {
+    color: #b00020;
+  }

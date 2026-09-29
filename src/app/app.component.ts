@@ -23,6 +23,41 @@ export class AppComponent {
     private router: Router
   ) {}
 
+
+  isTeacher(): boolean {
+    const token = localStorage.getItem('accessToken');
+  
+    if (!token) {
+      return false;
+    }
+  
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const roles: string[] = payload.roles || [];
+  
+      return roles.includes('TEACHER');
+    } catch {
+      return false;
+    }
+  }
+
+  isStudent(): boolean {
+    const token = localStorage.getItem('accessToken');
+  
+    if (!token) {
+      return false;
+    }
+  
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const roles: string[] = payload.roles || [];
+  
+      return roles.includes('STUDENT');
+    } catch {
+      return false;
+    }
+  }
+  
   logout(): void {
 
     const refreshToken = this.authService.getRefreshToken();

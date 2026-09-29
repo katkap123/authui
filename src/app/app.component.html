@@ -24,6 +24,18 @@
         Welcome
       </a>
 
+      <a
+        *ngIf="isTeacher()"
+        routerLink="/teacher/attendance">
+        Add Attendance
+      </a>
+
+      <a
+      *ngIf="isStudent()"
+      routerLink="/student/attendance">
+      My Attendance
+    </a>
+
       <button
         *ngIf="authService.isLoggedIn()"
         type="button"

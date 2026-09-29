@@ -1,0 +1,87 @@
+<div class="attendance-container">
+
+    <h2>Record Attendance</h2>
+  
+    <form #attendanceForm="ngForm"
+          (ngSubmit)="submitAttendance()">
+  
+      <div>
+        <label for="studentId">Student ID</label>
+  
+        <input
+          id="studentId"
+          type="text"
+          name="studentId"
+          [(ngModel)]="attendance.studentId"
+          required>
+      </div>
+  
+      <div>
+        <label for="classId">Class ID</label>
+  
+        <input
+          id="classId"
+          type="text"
+          name="classId"
+          [(ngModel)]="attendance.classId"
+          required>
+      </div>
+  
+      <div>
+        <label for="className">Class Name</label>
+  
+        <input
+          id="className"
+          type="text"
+          name="className"
+          [(ngModel)]="attendance.className"
+          required>
+      </div>
+  
+      <div>
+        <label for="attendanceDate">
+          Attendance Date
+        </label>
+  
+        <input
+          id="attendanceDate"
+          type="date"
+          name="attendanceDate"
+          [(ngModel)]="attendance.attendanceDate"
+          required>
+      </div>
+  
+      <div>
+        <label for="status">Status</label>
+  
+        <select
+          id="status"
+          name="status"
+          [(ngModel)]="attendance.status"
+          required>
+  
+          <option value="PRESENT">Present</option>
+          <option value="ABSENT">Absent</option>
+  
+        </select>
+      </div>
+  
+      <button
+        type="submit"
+        [disabled]="attendanceForm.invalid || submitting">
+  
+        {{ submitting ? 'Saving...' : 'Record Attendance' }}
+  
+      </button>
+  
+    </form>
+  
+    <p *ngIf="message">
+      {{ message }}
+    </p>
+  
+    <p *ngIf="errorMessage">
+      {{ errorMessage }}
+    </p>
+  
+  </div>
