@@ -1,87 +1,136 @@
 <div class="attendance-container">
 
-    <h2>Record Attendance</h2>
-  
-    <form #attendanceForm="ngForm"
-          (ngSubmit)="submitAttendance()">
-  
-      <div>
-        <label for="studentId">Student ID</label>
-  
-        <input
-          id="studentId"
-          type="text"
-          name="studentId"
-          [(ngModel)]="attendance.studentId"
-          required>
-      </div>
-  
-      <div>
-        <label for="classId">Class ID</label>
-  
-        <input
-          id="classId"
-          type="text"
-          name="classId"
-          [(ngModel)]="attendance.classId"
-          required>
-      </div>
-  
-      <div>
-        <label for="className">Class Name</label>
-  
-        <input
-          id="className"
-          type="text"
-          name="className"
-          [(ngModel)]="attendance.className"
-          required>
-      </div>
-  
-      <div>
-        <label for="attendanceDate">
-          Attendance Date
-        </label>
-  
-        <input
-          id="attendanceDate"
-          type="date"
-          name="attendanceDate"
-          [(ngModel)]="attendance.attendanceDate"
-          required>
-      </div>
-  
-      <div>
-        <label for="status">Status</label>
-  
-        <select
-          id="status"
-          name="status"
-          [(ngModel)]="attendance.status"
-          required>
-  
-          <option value="PRESENT">Present</option>
-          <option value="ABSENT">Absent</option>
-  
-        </select>
-      </div>
-  
-      <button
-        type="submit"
-        [disabled]="attendanceForm.invalid || submitting">
-  
-        {{ submitting ? 'Saving...' : 'Record Attendance' }}
-  
-      </button>
-  
-    </form>
-  
-    <p *ngIf="message">
-      {{ message }}
-    </p>
-  
-    <p *ngIf="errorMessage">
-      {{ errorMessage }}
-    </p>
-  
+  <h2>Record Attendance</h2>
+
+  <!-- Class -->
+  <div class="form-group">
+    <label for="class">Class</label>
+
+    <select
+      id="class"
+      [(ngModel)]="selectedClassId"
+      (change)="onClassChange()"
+      [disabled]="loadingClasses">
+
+      <option value="">Select class</option>
+
+      <option
+        *ngFor="let schoolClass of classes"
+        [value]="schoolClass.id">
+        {{ schoolClass.name }}
+      </option>
+
+    </select>
   </div>
+
+  <!-- Date -->
+  <div class="form-group">
+    <label for="attendanceDate">Date</label>
+
+    <input
+      id="attendanceDate"
+      type="date"
+      [(ngModel)]="attendanceDate">
+  </div>
+
+  <p *ngIf="loadingStudents">
+    Loading students...
+  </p>
+
+  <!-- Students -->
+  <div
+    class="student-section"
+    *ngIf="students.length > 0">
+
+    <div class="student-header">
+      <h3>Students</h3>
+
+      <span>
+        {{ students.length }} students
+      </span>
+    </div>
+
+    <p class="instruction">
+      Select students who are absent. All other students
+      will automatically be marked present.
+    </p>
+
+    <div
+      class="student-row"
+      *ngFor="let student of students">
+
+      <label>
+
+        <input
+          type="checkbox"
+          [checked]="isAbsent(student.studentId)"
+          (change)="toggleAbsent(student.studentId)">
+
+          <span>
+            {{ getStudentName(student.studentId) }}
+          </span>
+
+      </label>
+
+      <span
+        class="status"
+        [class.absent]="isAbsent(student.studentId)"
+        [class.present]="!isAbsent(student.studentId)">
+
+        {{ isAbsent(student.studentId) ? 'Absent' : 'Present' }}
+
+      </span>
+
+    </div>
+
+    <!-- Summary -->
+    <div class="summary">
+
+      <span>
+        Present:
+        {{ students.length - absentStudentIds.size }}
+      </span>
+
+      <span>
+        Absent:
+        {{ absentStudentIds.size }}
+      </span>
+
+    </div>
+
+    <!-- Submit -->
+    <button
+      type="button"
+      (click)="submitAttendance()"
+      [disabled]="submitting || !attendanceDate">
+
+      {{ submitting ? 'Saving...' : 'Submit Attendance' }}
+
+    </button>
+
+  </div>
+
+  <!-- No students -->
+  <p
+    *ngIf="
+      selectedClassId &&
+      !loadingStudents &&
+      students.length === 0
+    ">
+    No students are assigned to this class.
+  </p>
+
+  <!-- Messages -->
+  <p
+    class="success-message"
+    *ngIf="successMessage">
+    {{ successMessage }}
+  </p>
+
+  <p
+    class="error-message"
+    *ngIf="errorMessage">
+    {{ errorMessage }}
+  </p>
+
+</div>

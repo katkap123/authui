@@ -2,6 +2,23 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+export interface SchoolClass {
+  id: string;
+  name: string;
+  classTeacherId: string;
+}
+
+export interface StudentClass {
+  id: string;
+  studentId: string;
+  classId: string;
+}
+
+export interface RecordClassAttendanceRequest {
+  attendanceDate: string;
+  absentStudentIds: string[];
+}
+
 export interface CreateAttendanceRequest {
   studentId: string;
   classId: string;
@@ -53,6 +70,29 @@ export class AttendanceService {
     return this.http.get<Attendance[]>(
       `${this.attendanceApiUrl}/api/student/attendance`,
       { params }
+    );
+  }
+
+  getMyClasses(): Observable<SchoolClass[]> {
+    return this.http.get<SchoolClass[]>(
+      `${this.attendanceApiUrl}/api/teacher/classes`
+    );
+  }
+  
+  getClassStudents(classId: string): Observable<StudentClass[]> {
+    return this.http.get<StudentClass[]>(
+      `${this.attendanceApiUrl}/api/teacher/classes/${classId}/students`
+    );
+  }
+  
+  recordClassAttendance(
+    classId: string,
+    request: RecordClassAttendanceRequest
+  ): Observable<Attendance[]> {
+  
+    return this.http.post<Attendance[]>(
+      `${this.attendanceApiUrl}/api/teacher/attendance/class/${classId}`,
+      request
     );
   }
 }

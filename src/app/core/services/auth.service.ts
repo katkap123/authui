@@ -13,6 +13,13 @@ import { ResetPasswordRequest } from '../../auth/models/reset-password-request';
 import { RefreshTokenRequest } from '../../auth/models/refresh-token-request';
 import { AuthResponse } from '../../auth/models/auth-response';
 
+export interface UserSummary {
+  id: string;
+  firstName: string | null;
+  lastName: string | null;
+  email: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -42,6 +49,13 @@ export class AuthService {
     return this.http.post<ForgotPasswordResponse>(
       `${this.apiUrl}/api/auth/forgot-password`,
       request
+    );
+  }
+
+  getUserSummaries(userIds: string[]): Observable<UserSummary[]> {
+    return this.http.post<UserSummary[]>(
+      `${this.apiUrl}/api/users/summaries`,
+      userIds
     );
   }
 
