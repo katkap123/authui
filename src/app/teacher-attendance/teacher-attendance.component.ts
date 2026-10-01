@@ -147,6 +147,16 @@ export class TeacherAttendanceComponent implements OnInit {
     return fullName || profile.email;
   }
 
+  markAllPresent(): void {
+    this.absentStudentIds.clear();
+  }
+  
+  markAllAbsent(): void {
+    this.absentStudentIds = new Set(
+      this.students.map(student => student.studentId)
+    );
+  }
+
   toggleAbsent(studentId: string): void {
     if (this.absentStudentIds.has(studentId)) {
       this.absentStudentIds.delete(studentId);
