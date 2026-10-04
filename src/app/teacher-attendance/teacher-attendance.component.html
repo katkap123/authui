@@ -56,6 +56,25 @@
       will automatically be marked present.
     </p>
 
+    <div
+    class="attendance-mode"
+    *ngIf="selectedClassId && attendanceDate">
+
+    <p
+      class="existing-attendance"
+      *ngIf="attendanceExists">
+      Attendance already recorded for this date.
+      You are editing the existing attendance.
+    </p>
+
+    <p
+      class="new-attendance"
+      *ngIf="!attendanceExists">
+      No attendance recorded for this date yet.
+    </p>
+
+  </div>
+
     <div class="bulk-actions">
       <button
         type="button"
@@ -119,7 +138,13 @@
       (click)="submitAttendance()"
       [disabled]="submitting || !attendanceDate">
 
-      {{ submitting ? 'Saving...' : 'Submit Attendance' }}
+      {{
+        submitting
+          ? 'Saving...'
+          : attendanceExists
+            ? 'Update Attendance'
+            : 'Submit Attendance'
+      }}
 
     </button>
 

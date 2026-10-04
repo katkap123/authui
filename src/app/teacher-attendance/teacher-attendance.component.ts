@@ -23,7 +23,7 @@ export class TeacherAttendanceComponent implements OnInit {
   studentProfiles = new Map<string, UserSummary>();
   classes: SchoolClass[] = [];
   students: StudentClass[] = [];
-
+  attendanceExists = false;
   selectedClassId = '';
   attendanceDate = '';
 
@@ -135,7 +135,7 @@ export class TeacherAttendanceComponent implements OnInit {
     this.successMessage = '';
     this.errorMessage = '';
     this.absentStudentIds.clear();
-  
+    this.attendanceExists = false;
     if (this.selectedClassId) {
       this.loadExistingAttendance();
     }
@@ -173,13 +173,14 @@ export class TeacherAttendanceComponent implements OnInit {
       )
       .subscribe({
         next: (attendance) => {
-  
+
+          this.attendanceExists = attendance.length > 0;
+        
           attendance
             .filter(record => record.status === 'ABSENT')
             .forEach(record => {
               this.absentStudentIds.add(record.studentId);
             });
-  
         },
         error: () => {
           this.errorMessage =
@@ -230,7 +231,7 @@ export class TeacherAttendanceComponent implements OnInit {
       .subscribe({
         next: (attendance) => {
           this.submitting = false;
-
+          this.attendanceExists = true;
           const absentCount =
             attendance.filter(a => a.status === 'ABSENT').length;
 
