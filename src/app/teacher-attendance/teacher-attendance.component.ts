@@ -112,8 +112,10 @@ export class TeacherAttendanceComponent implements OnInit {
                     profile
                   );
                 });
-        
+              
                 this.loadingStudents = false;
+              
+                this.loadExistingAttendance();
               },
               error: () => {
                 this.loadingStudents = false;
@@ -127,6 +129,16 @@ export class TeacherAttendanceComponent implements OnInit {
           this.errorMessage = 'Unable to load students.';
         }
       });
+  }
+
+  onDateChange(): void {
+    this.successMessage = '';
+    this.errorMessage = '';
+    this.absentStudentIds.clear();
+  
+    if (this.selectedClassId) {
+      this.loadExistingAttendance();
+    }
   }
 
   getStudentName(studentId: string): string {
@@ -145,6 +157,35 @@ export class TeacherAttendanceComponent implements OnInit {
       .trim();
   
     return fullName || profile.email;
+  }
+
+  loadExistingAttendance(): void {
+    if (!this.selectedClassId || !this.attendanceDate) {
+      return;
+    }
+  
+    this.absentStudentIds.clear();
+  
+    this.attendanceService
+      .getClassAttendance(
+        this.selectedClassId,
+        this.attendanceDate
+      )
+      .subscribe({
+        next: (attendance) => {
+  
+          attendance
+            .filter(record => record.status === 'ABSENT')
+            .forEach(record => {
+              this.absentStudentIds.add(record.studentId);
+            });
+  
+        },
+        error: () => {
+          this.errorMessage =
+            'Unable to load existing attendance.';
+        }
+      });
   }
 
   markAllPresent(): void {

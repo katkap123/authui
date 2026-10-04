@@ -30,7 +30,8 @@
     <input
       id="attendanceDate"
       type="date"
-      [(ngModel)]="attendanceDate">
+      [(ngModel)]="attendanceDate"
+      (change)="onDateChange()">
   </div>
 
   <p *ngIf="loadingStudents">

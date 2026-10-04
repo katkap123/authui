@@ -73,6 +73,20 @@ export class AttendanceService {
     );
   }
 
+  getClassAttendance(
+    classId: string,
+    attendanceDate: string
+  ): Observable<Attendance[]> {
+  
+    const params = new HttpParams()
+      .set('date', attendanceDate);
+  
+    return this.http.get<Attendance[]>(
+      `${this.attendanceApiUrl}/api/teacher/attendance/class/${classId}`,
+      { params }
+    );
+  }
+
   getMyClasses(): Observable<SchoolClass[]> {
     return this.http.get<SchoolClass[]>(
       `${this.attendanceApiUrl}/api/teacher/classes`
