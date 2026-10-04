@@ -31,7 +31,9 @@
       id="attendanceDate"
       type="date"
       [(ngModel)]="attendanceDate"
+      [max]="maxAttendanceDate"
       (change)="onDateChange()">
+      
   </div>
 
   <p *ngIf="loadingStudents">

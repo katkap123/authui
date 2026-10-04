@@ -26,7 +26,7 @@ export class TeacherAttendanceComponent implements OnInit {
   attendanceExists = false;
   selectedClassId = '';
   attendanceDate = '';
-
+  maxAttendanceDate = '';
   absentStudentIds = new Set<string>();
 
   loadingClasses = false;
@@ -43,6 +43,8 @@ export class TeacherAttendanceComponent implements OnInit {
 
   ngOnInit(): void {
     this.attendanceDate = this.getToday();
+    this.maxAttendanceDate = this.getToday();
+  
     this.loadClasses();
   }
 
